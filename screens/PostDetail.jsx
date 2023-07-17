@@ -35,13 +35,15 @@ const PostDetail = ({ navigation, route: { params } }) => {
   const isFocused = useIsFocused();
   const [id, setId] = useState();
   const [loading, setLoading] = useState(false);
-  const [post, setPost] = useState([]);
+
+  const { post } = useSelector((state) => state.post);
 
   useEffect(() => {
     setId(params.id);
     dispatch(getPostDetails(params.id));
   }, [dispatch, isFocused]);
 
+  console.log(post[0]?.image);
   return loading ? (
     <Loader></Loader>
   ) : (
