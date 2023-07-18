@@ -21,7 +21,6 @@ import { updateProfile } from "../redux/actions/otherAction";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import mime from "mime";
 import { useIsFocused } from "@react-navigation/native";
-const loading = false;
 
 const UpdateProfile = ({ navigation, route }) => {
   const { user } = useSelector((state) => state.user);

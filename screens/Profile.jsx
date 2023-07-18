@@ -1,18 +1,14 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 
-import { Avatar, Button } from "react-native-paper";
+import { Avatar } from "react-native-paper";
 
 import { useDispatch, useSelector } from "react-redux";
 
 import { useIsFocused } from "@react-navigation/native";
-import mime from "mime";
 import { colors, defaultImg, defaultStyle, formStyles } from "../styles/styles";
-import {
-  useMessageAndErrorOther,
-  useMessageAndErrorUser,
-} from "../utils/hooks";
-import { loadUser, logout } from "../redux/actions/userAction";
+import { useMessageAndErrorUser } from "../utils/hooks";
+import { logout } from "../redux/actions/userAction";
 import Loader from "../components/Loader";
 import ButtonBox from "../components/ButtonBox";
 // import { updatePic } from "../redux/actions/otherAction";
@@ -25,7 +21,6 @@ const Profile = ({ navigation, route }) => {
   );
 
   const dispatch = useDispatch();
-  const isFocused = useIsFocused();
 
   const loading = useMessageAndErrorUser(navigation, dispatch, "login");
 

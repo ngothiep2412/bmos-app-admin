@@ -1,16 +1,16 @@
 import { View, Text, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
 import { colors, defaultStyle, formStyles } from "../styles/styles";
-import ButtonBox from "../components/ButtonBox";
 
 import { useDispatch } from "react-redux";
 import { useIsFocused } from "@react-navigation/native";
-import MealListItem from "../components/MealListItem";
+import PostListItem from "../components/PostListItem";
 import { useAdminPosts } from "../utils/hooks";
 import Loader from "../components/Loader";
 import { StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { TextInput } from "react-native-paper";
 
 const Posts = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -24,8 +24,24 @@ const Posts = ({ navigation }) => {
   const [filteredPosts, setFilteredPosts] = useState([]);
 
   useEffect(() => {
+    setSearchText("");
     setFilteredPosts(posts);
   }, [posts, isFocused]);
+
+  const [searchText, setSearchText] = useState("");
+
+  const handleSearch = async (text) => {
+    setSearchText(text);
+
+    const filteredList = posts.filter((item) =>
+      item.name.toLowerCase().includes(text.toLowerCase())
+    );
+    if (searchText === "") {
+      setFilteredPosts(posts);
+    } else {
+      setFilteredPosts(filteredList);
+    }
+  };
 
   return (
     <>
@@ -51,7 +67,14 @@ const Posts = ({ navigation }) => {
                 position: "absolute",
                 zIndex: 9999,
                 right: 20,
-                bottom: 80,
+                bottom: 60,
+                borderColor: "#EBEBEB",
+                shadowColor: "red",
+
+                shadowRadius: 8,
+                shadowOffset: { width: 0, height: 2 },
+                borderWidth: 2,
+                shadowOpacity: 0.15,
               }}
             >
               {/* Nội dung màn hình */}
@@ -61,19 +84,26 @@ const Posts = ({ navigation }) => {
             </View>
 
             <View style={{ marginBottom: 20, marginTop: 10 }}>
+              <TextInput
+                style={styles.searchInput}
+                placeholder="Search Meal"
+                onChangeText={handleSearch}
+                activeUnderlineColor={colors.color1}
+                value={searchText}
+              />
               <Text style={{ fontSize: 20, fontWeight: "600" }}>List News</Text>
             </View>
             <View
               style={{
                 width: "100%",
-                height: 600,
+                height: 550,
               }}
             >
               <FlatList
                 showsVerticalScrollIndicator={false}
                 data={filteredPosts}
                 renderItem={({ item, index }) => (
-                  <MealListItem
+                  <PostListItem
                     navigate={navigation}
                     key={item.id}
                     id={item.id}
@@ -96,6 +126,26 @@ const Posts = ({ navigation }) => {
 export default Posts;
 
 const styles = StyleSheet.create({
+  searchInput: {
+    height: 50,
+
+    borderWidth: 1,
+    borderColor: colors.color3,
+    marginBottom: 16,
+
+    paddingHorizontal: 30,
+
+    backgroundColor: colors.color2,
+    overflow: "hidden",
+    shadowColor: "black",
+    borderRadius: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 2 },
+    borderWidth: 0.5,
+    shadowOpacity: 0.15,
+  },
   searchInput: {
     height: 50,
 

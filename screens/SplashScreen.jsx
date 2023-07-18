@@ -4,7 +4,6 @@ import React, { useRef, useEffect } from "react";
 import { Alert } from "react-native";
 import {
   SafeAreaView,
-  Image,
   Text,
   View,
   StyleSheet,
@@ -133,7 +132,7 @@ export const styles = StyleSheet.create({
   },
   image: {
     width: 150,
-    height: 200,
+    height: 250,
   },
   logoContainer: {
     flexDirection: "row",

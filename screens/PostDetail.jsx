@@ -14,9 +14,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useIsFocused } from "@react-navigation/native";
 import Loader from "../components/Loader";
 import { getPostDetails } from "../redux/actions/postAction";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
-import { server } from "../redux/store";
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
 const ITEM_WIDTH = SLIDER_WIDTH;
@@ -30,20 +27,17 @@ export const iconOptions = {
   },
 };
 
-const PostDetail = ({ navigation, route: { params } }) => {
+const PostDetail = ({ route: { params } }) => {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
-  const [id, setId] = useState();
   const [loading, setLoading] = useState(false);
 
   const { post } = useSelector((state) => state.post);
 
   useEffect(() => {
-    setId(params.id);
     dispatch(getPostDetails(params.id));
   }, [dispatch, isFocused]);
 
-  console.log(post[0]?.image);
   return loading ? (
     <Loader></Loader>
   ) : (

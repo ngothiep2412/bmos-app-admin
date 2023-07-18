@@ -19,7 +19,6 @@ export const updateMealProduct =
       });
 
       const token = await AsyncStorage.getItem("token");
-      // console.log("data" + token);
       const { data } = await axios.put(
         `${server}/meal/update}`,
         {
@@ -45,7 +44,6 @@ export const updateMealProduct =
         payload: data.message,
       });
     } catch (error) {
-      console.log("data" + error.response.data.message);
       dispatch({
         type: "updateMealProductFail",
         payload: error.response.data.message,
@@ -78,7 +76,6 @@ export const processOrder = (id) => async (dispatch) => {
       payload: response.data.message,
     });
   } catch (error) {
-    console.log(error);
     dispatch({
       type: "processOrderFail",
       payload: error.response.data.message,
@@ -116,10 +113,6 @@ export const getOrderDetail = (id) => async (dispatch) => {
 
 export const updatePassword =
   (oldPassword, newPassword, confirmNewPassword) => async (dispatch) => {
-    console.log(oldPassword);
-    console.log(newPassword);
-    console.log(confirmNewPassword);
-
     try {
       dispatch({
         type: "updatePasswordRequest",
@@ -147,7 +140,6 @@ export const updatePassword =
         payload: data.message,
       });
     } catch (error) {
-      console.log(error.response.data.message);
       dispatch({
         type: "updatePasswordFail",
         payload: "Check your password",
@@ -174,7 +166,6 @@ export const loadOrder = () => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
-    console.log(error.message);
     dispatch({
       type: "loadOrderFail",
       payload: error.response.data.message,

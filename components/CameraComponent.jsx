@@ -28,58 +28,13 @@ const CameraComponent = ({ navigation, route }) => {
       quality: 1,
     });
 
-    // log(route.params.updatedMealImg);
-
-    if (route.params?.newProduct)
-      return navigation.navigate("newproduct", { image: data.assets[0].uri });
-
-    if (route.params?.updateProduct)
-      return navigation.navigate("productimages", {
-        image: data.assets[0].uri,
-      });
-
-    if (route.params?.updatePostImg) {
-      return navigation.navigate("updatepost", {
-        image: data.assets[0].uri,
-      });
+    if (data.canceled) {
+      // Handle case when the user cancels the image picker
+      return;
     }
 
-    if (route.params?.newMealImg) {
-      return navigation.navigate("newmeal", {
-        image: data.assets[0].uri,
-      });
-    }
-
-    if (route.params?.newBirdImg) {
-      return navigation.navigate("newbird", {
-        image: data.assets[0].uri,
-      });
-    }
-    if (route.params?.updatedProductImg) {
-      return navigation.navigate("updateproduct", {
-        image: data.assets[0].uri,
-      });
-    }
-
-    if (route.params?.addPostImg) {
-      return navigation.navigate("newpost", {
-        image: data.assets[0].uri,
-      });
-    }
-
-    if (route.params?.addMealImg) {
-      return navigation.navigate("newmeal", {
-        image: data.assets[0].uri,
-      });
-    }
-
-    if (route.params?.updateProfile)
-      return navigation.navigate("updateprofile", {
-        image: data.assets[0].uri,
-      });
-    else {
-      // return navigation.navigate("signup", { image: data.assets[0].uri });
-    }
+    // Rest of your code to handle the selected image
+    // ...
   };
 
   const clickPicture = async () => {

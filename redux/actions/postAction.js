@@ -52,7 +52,6 @@ export const getPostDetails = (id) => async (dispatch) => {
       payload: data.data,
     });
   } catch (error) {
-    console.log(error);
     dispatch({
       type: "getPostDetailsFail",
       payload: error.response.data.message,
@@ -62,7 +61,6 @@ export const getPostDetails = (id) => async (dispatch) => {
 
 export const addPost =
   (title, description, name, myForm) => async (dispatch) => {
-    console.log(myForm);
     try {
       dispatch({
         type: "addPostRequest",
@@ -109,8 +107,7 @@ export const addPost =
   };
 
 export const updatePost =
-  (id, status, title, description, name, myForm) => async (dispatch) => {
-    console.log(myForm);
+  (id, status, title, description, myForm) => async (dispatch) => {
     try {
       dispatch({
         type: "updatePostRequest",
@@ -130,13 +127,13 @@ export const updatePost =
       const headers = {
         Authorization: `Bearer ${token}`,
       };
+
       const { data } = await axios.put(
         `${server}/news/update/${id}`,
         {
           status: status,
           title: title,
           desc: description,
-          name: name,
           image: image,
         },
         {
@@ -144,8 +141,6 @@ export const updatePost =
           headers: headers,
         }
       );
-
-      console.log(data.data);
 
       dispatch({
         type: "updatePostSuccess",

@@ -2,22 +2,18 @@ import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { colors, defaultStyle, formHeading } from "../styles/styles";
 import Loader from "../components/Loader";
-import OrderItem from "../components/OrderItem";
-import { useGetOrders, useMessageAndErrorOther } from "../utils/hooks";
+import UserItem from "../components/UserItem";
 import { useIsFocused } from "@react-navigation/native";
-import { Headline, Provider, TextInput } from "react-native-paper";
-import { useDispatch } from "react-redux";
-import DropDown from "react-native-paper-dropdown";
+import { Provider } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { server } from "../redux/store";
-import { processOrder } from "../redux/actions/otherAction";
 import { TouchableOpacity } from "react-native";
 import { Dimensions } from "react-native";
+import { TextInput } from "react-native-paper";
 
-const Users = ({ navigation }) => {
+const Users = () => {
   const isFocused = useIsFocused();
-  const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
 
@@ -166,8 +162,10 @@ const Users = ({ navigation }) => {
                       .toLowerCase()
                       .includes(searchText.toLowerCase())
                   );
+                  setSaveStaff(response.data.data);
                   setStaffsRender(filteredList);
                 } else {
+                  setSaveStaff(response.data.data);
                   setStaffsRender(response.data.data);
                 }
                 setLoading(false);
@@ -210,9 +208,11 @@ const Users = ({ navigation }) => {
                       .toLowerCase()
                       .includes(searchText.toLowerCase())
                   );
-                  setStaffsRender(filteredList);
+                  setCustomerRender(filteredList);
+                  setSaveCustomer(response.data.data);
                 } else {
                   setCustomerRender(response.data.data);
+                  setSaveCustomer(response.data.data);
                 }
 
                 setLoading(false);
@@ -293,8 +293,10 @@ const Users = ({ navigation }) => {
                       .includes(searchText.toLowerCase())
                   );
                   setStaffsRender(filteredList);
+                  setSaveStaff(response.data.data);
                 } else {
                   setStaffsRender(response.data.data);
+                  setSaveStaff(response.data.data);
                 }
                 setLoading(false);
               } catch (error) {
@@ -337,8 +339,10 @@ const Users = ({ navigation }) => {
                       .includes(searchText.toLowerCase())
                   );
                   setCustomerRender(filteredList);
+                  setSaveCustomer(response.data.data);
                 } else {
                   setCustomerRender(response.data.data);
+                  setSaveCustomer(response.data.data);
                 }
                 setLoading(false);
               } catch (error) {
@@ -410,7 +414,7 @@ const Users = ({ navigation }) => {
       selectedTabData.user.length > 0
     ) {
       return selectedTabData.user.map((item, index) => (
-        <OrderItem
+        <UserItem
           key={item.id}
           id={item.id}
           i={index}
@@ -424,7 +428,7 @@ const Users = ({ navigation }) => {
           status={item.status}
           avatar={item.avatar}
           type={item}
-        ></OrderItem>
+        ></UserItem>
       ));
     } else {
       return (
@@ -440,50 +444,46 @@ const Users = ({ navigation }) => {
   };
 
   return (
-    <Provider>
-      <View style={{ ...defaultStyle, backgroundColor: colors.color5 }}>
-        {/* Heading */}
-        <View style={{ marginBottom: 20 }}>
-          <Text style={formHeading}>All Staff</Text>
-        </View>
-
-        <View style={styles.spacerStyle} />
-        {loading ? (
-          <Loader></Loader>
-        ) : (
-          <View style={{ padding: 10, flex: 1 }}>
-            <View style={{}}>
-              <Text
-                style={{ fontSize: 20, fontWeight: "700", marginBottom: 10 }}
-              >
-                Type Of User
-              </Text>
-              <TabBar
-                tabs={tabs}
-                selectedTab={selectedTab}
-                onTabPress={setSelectedTab}
-              />
-              <TextInput
-                style={styles.searchInput}
-                placeholder="Search Meal"
-                onChangeText={handleSearch}
-                activeUnderlineColor={colors.color1}
-                value={searchText}
-              />
-              <ScrollView
-                showsVerticalScrollIndicator={false}
-                style={{
-                  paddingHorizontal: 2,
-                  height: Dimensions.get("screen").height / 1.7,
-                }}
-              >
-                {renderProductList()}
-              </ScrollView>
-            </View>
-          </View>
-        )}
+    <View style={{ ...defaultStyle, backgroundColor: colors.color5 }}>
+      {/* Heading */}
+      <View style={{ marginBottom: 20 }}>
+        <Text style={formHeading}>All Staff</Text>
       </View>
-    </Provider>
+
+      <View style={styles.spacerStyle} />
+      {loading ? (
+        <Loader></Loader>
+      ) : (
+        <View style={{ padding: 10, flex: 1 }}>
+          <View style={{}}>
+            <Text style={{ fontSize: 20, fontWeight: "700", marginBottom: 10 }}>
+              Type Of User
+            </Text>
+            <TabBar
+              tabs={tabs}
+              selectedTab={selectedTab}
+              onTabPress={setSelectedTab}
+            />
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Search Meal"
+              onChangeText={handleSearch}
+              activeUnderlineColor={colors.color1}
+              value={searchText}
+            />
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              style={{
+                paddingHorizontal: 2,
+                height: Dimensions.get("screen").height / 1.7,
+              }}
+            >
+              {renderProductList()}
+            </ScrollView>
+          </View>
+        </View>
+      )}
+    </View>
   );
 };
 

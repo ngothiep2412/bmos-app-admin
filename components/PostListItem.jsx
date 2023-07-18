@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import React from "react";
 import { colors, defaultImgFood } from "../styles/styles";
 
-const MealListItem = ({ navigate, title, id, name, createDate, imgSrc }) => {
+const PostListItem = ({ navigate, title, id, name, createDate, imgSrc }) => {
   // const [openModal, setOpenModal] = useState(false);
 
   return (
@@ -67,7 +67,7 @@ const MealListItem = ({ navigate, title, id, name, createDate, imgSrc }) => {
               }}
               numberOfLines={2}
             >
-              {title}
+              {name}
             </Text>
             <Text
               style={{
@@ -82,7 +82,7 @@ const MealListItem = ({ navigate, title, id, name, createDate, imgSrc }) => {
               }}
               numberOfLines={2}
             >
-              {name}
+              {title}
             </Text>
             <Text
               style={{
@@ -123,4 +123,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MealListItem;
+export default PostListItem;

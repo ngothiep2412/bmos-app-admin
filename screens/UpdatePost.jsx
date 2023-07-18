@@ -14,7 +14,7 @@ import { useIsFocused } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 
 import mime from "mime";
-import { addPost, updatePost } from "../redux/actions/postAction";
+import { updatePost } from "../redux/actions/postAction";
 import { TouchableOpacity } from "react-native";
 import { StyleSheet } from "react-native";
 
@@ -22,7 +22,6 @@ const UpdatePost = ({ navigation, route }) => {
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
 
-  const [name, setName] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [imagePost, setImagePost] = useState("");
@@ -38,17 +37,16 @@ const UpdatePost = ({ navigation, route }) => {
       type: mime.getType(imagePost),
       name: imagePost.split("/").pop(),
     });
-
-    dispatch(updatePost(name, title, description, myForm));
+    const id = post[0].id;
+    dispatch(updatePost(id, statusPost, title, description, myForm));
   };
 
   const loadingOther = useMessageAndErrorPost(dispatch, navigation, "posts");
 
-  const disableBtnCondition = !name || !title || !description || !imagePost;
+  const disableBtnCondition = !title || !description || !imagePost;
 
   useEffect(() => {
     setImagePost(post[0]?.image);
-    setName(post[0]?.name);
     setDescription(post[0]?.desc);
     setTitle(post[0]?.title);
     if (post[0]?.status === 1) {
@@ -68,8 +66,6 @@ const UpdatePost = ({ navigation, route }) => {
   const handleRadioButtonPress = (value) => {
     setStatusPost(value);
   };
-
-  console.log(post[0]);
 
   return (
     <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
@@ -130,13 +126,6 @@ const UpdatePost = ({ navigation, route }) => {
               >
                 Manage Images
               </Button>
-              <Text style={{ color: "white" }}>Name</Text>
-              <TextInput
-                {...inputOptions}
-                placeholder="Name"
-                value={name}
-                onChangeText={setName}
-              />
               <Text style={{ color: "white" }}>Title</Text>
               <TextInput
                 {...inputOptions}

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Animated, View } from "react-native";
@@ -24,6 +24,8 @@ import NewPost from "./screens/NewPost";
 import PostDetail from "./screens/PostDetail";
 import UpdatePost from "./screens/UpdatePost";
 import UpdateProfile from "./screens/UpdateProfile";
+import Onboarding from "react-native-onboarding-swiper";
+import OnboardingScreen from "./screens/OnBoarding";
 
 const Tab = createBottomTabNavigator();
 
@@ -216,37 +218,107 @@ function Main() {
     );
   }
 
-  return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="splash"
-        screenOptions={{ headerShown: false }}
-      >
-        <Stack.Group>
-          <Stack.Screen name="splash" component={SplashScreen}></Stack.Screen>
-          <Stack.Screen name="BottomTab" component={TabBottom} />
-          <Stack.Screen name="login" component={Login}></Stack.Screen>
+  const [showOnboarding, setShowOnboarding] = useState(null);
+  useEffect(() => {
+    checkIfAlreadyOnboarded();
+  }, []);
 
-          <Stack.Screen
-            name="camera"
-            component={CameraComponent}
-          ></Stack.Screen>
-          <Stack.Screen
-            name="changepassword"
-            component={ChangePassword}
-          ></Stack.Screen>
+  const checkIfAlreadyOnboarded = async () => {
+    let onboarded = await AsyncStorage.getItem("onboarded");
+    if (onboarded == 1) {
+      // hide onboarding
+      setShowOnboarding(false);
+    } else {
+      // show onboarding
+      setShowOnboarding(true);
+    }
+  };
 
-          <Stack.Screen name="newpost" component={NewPost}></Stack.Screen>
-          <Stack.Screen name="detailpost" component={PostDetail}></Stack.Screen>
-          <Stack.Screen name="updatepost" component={UpdatePost}></Stack.Screen>
-          <Stack.Screen
-            name="updateprofile"
-            component={UpdateProfile}
-          ></Stack.Screen>
-        </Stack.Group>
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+  if (showOnboarding == null) {
+    return null;
+  }
+
+  if (showOnboarding) {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName="Onboarding"
+          screenOptions={{ headerShown: false }}
+        >
+          <Stack.Group>
+            <Stack.Screen
+              name="Onboarding"
+              options={{ headerShown: false }}
+              component={OnboardingScreen}
+            />
+            <Stack.Screen name="splash" component={SplashScreen}></Stack.Screen>
+            <Stack.Screen name="BottomTab" component={TabBottom} />
+            <Stack.Screen name="login" component={Login}></Stack.Screen>
+            <Stack.Screen
+              name="camera"
+              component={CameraComponent}
+            ></Stack.Screen>
+            <Stack.Screen
+              name="changepassword"
+              component={ChangePassword}
+            ></Stack.Screen>
+
+            <Stack.Screen name="newpost" component={NewPost}></Stack.Screen>
+            <Stack.Screen
+              name="detailpost"
+              component={PostDetail}
+            ></Stack.Screen>
+            <Stack.Screen
+              name="updatepost"
+              component={UpdatePost}
+            ></Stack.Screen>
+            <Stack.Screen
+              name="updateprofile"
+              component={UpdateProfile}
+            ></Stack.Screen>
+          </Stack.Group>
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  } else {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName="splash"
+          screenOptions={{ headerShown: false }}
+        >
+          <Stack.Group>
+            <Stack.Screen name="splash" component={SplashScreen}></Stack.Screen>
+            <Stack.Screen name="BottomTab" component={TabBottom} />
+            <Stack.Screen name="login" component={Login}></Stack.Screen>
+
+            <Stack.Screen
+              name="camera"
+              component={CameraComponent}
+            ></Stack.Screen>
+            <Stack.Screen
+              name="changepassword"
+              component={ChangePassword}
+            ></Stack.Screen>
+
+            <Stack.Screen name="newpost" component={NewPost}></Stack.Screen>
+            <Stack.Screen
+              name="detailpost"
+              component={PostDetail}
+            ></Stack.Screen>
+            <Stack.Screen
+              name="updatepost"
+              component={UpdatePost}
+            ></Stack.Screen>
+            <Stack.Screen
+              name="updateprofile"
+              component={UpdateProfile}
+            ></Stack.Screen>
+          </Stack.Group>
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
 }
 
 function getWidth() {

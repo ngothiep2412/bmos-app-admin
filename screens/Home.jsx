@@ -13,7 +13,6 @@ import Loader from "../components/Loader";
 import { server } from "../redux/store";
 import { Alert } from "react-native";
 import {
-  VictoryAnimation,
   VictoryAxis,
   VictoryBar,
   VictoryChart,
@@ -31,6 +30,7 @@ const Home = () => {
   const [totalAccountActive, setTotalAccountActive] = useState(0);
   const [totalAccountInactive, setTotalAccountInactive] = useState(0);
   const [totalAccountUnverified, setTotalAccountUnverified] = useState(0);
+  const [totalNews, setTotalNews] = useState(0);
 
   useEffect(() => {
     setLoading(true);
@@ -52,9 +52,10 @@ const Home = () => {
         setTotalAccountActive(response.data.data.TotalAccountActive);
         setTotalAccountInactive(response.data.data.TotalAccountInactive);
         setTotalAccountUnverified(response.data.data.TotalAccountUnverified);
-
+        setTotalNews(response.data.data.TotalNews);
         setLoading(false);
       } catch (error) {
+        c;
         console.log(error);
         Alert.alert(
           //title
@@ -147,10 +148,10 @@ const Home = () => {
                       color={colors.color1}
                     ></FontAwesome5>
                     <Text style={[styles.cardTextNumber, { color: "#B42A56" }]}>
-                      {/* {totalOrder} */} 10
+                      {totalNews}
                     </Text>
                     <Text style={[styles.cardText, { color: "#B42A56" }]}>
-                      Total Posts
+                      Total News
                     </Text>
                   </View>
                 </View>

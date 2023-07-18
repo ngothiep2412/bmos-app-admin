@@ -4,7 +4,7 @@ import { colors } from "../styles/styles";
 import { Button } from "react-native-paper";
 import { Image } from "react-native";
 
-const OrderItem = ({
+const UserItem = ({
   id,
   fullName,
   dob,
@@ -126,7 +126,7 @@ const TextBox = ({ title, value, i }) => (
   </Text>
 );
 
-export default OrderItem;
+export default UserItem;
 
 const styles = StyleSheet.create({
   container: {
