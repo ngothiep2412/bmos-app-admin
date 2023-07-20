@@ -91,7 +91,7 @@ export const loadUser = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: "loadUserFail",
-      payload: error.response.data.message,
+      payload: "Can not load user",
     });
   }
 };
@@ -111,7 +111,7 @@ export const logout = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: "logoutFail",
-      payload: error.response.data.message,
+      payload: "Logout Fail",
     });
   }
 };

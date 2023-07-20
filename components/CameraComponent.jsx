@@ -33,8 +33,61 @@ const CameraComponent = ({ navigation, route }) => {
       return;
     }
 
-    // Rest of your code to handle the selected image
-    // ...
+    if (route.params?.newProduct)
+      return navigation.navigate("newproduct", { image: data.assets[0].uri });
+
+    if (route.params?.updateProduct)
+      return navigation.navigate("productimages", {
+        image: data.assets[0].uri,
+      });
+
+    if (route.params?.updatePostImg) {
+      return navigation.navigate("updatepost", {
+        image: data.assets[0].uri,
+      });
+    }
+    if (route.params?.addPostImg) {
+      return navigation.navigate("newpost", {
+        image: data.assets[0].uri,
+      });
+    }
+
+    if (route.params?.newMealImg) {
+      return navigation.navigate("newmeal", {
+        image: data.assets[0].uri,
+      });
+    }
+
+    if (route.params?.newBirdImg) {
+      return navigation.navigate("newbird", {
+        image: data.assets[0].uri,
+      });
+    }
+    if (route.params?.updatedProductImg) {
+      return navigation.navigate("updateproduct", {
+        image: data.assets[0].uri,
+      });
+    }
+
+    if (route.params?.addMealImg) {
+      return navigation.navigate("newmeal", {
+        image: data.assets[0].uri,
+      });
+    }
+
+    if (route.params?.addStaff) {
+      return navigation.navigate("newstaff", {
+        image: data.assets[0].uri,
+      });
+    }
+
+    if (route.params?.updateProfile)
+      return navigation.navigate("updateprofile", {
+        image: data.assets[0].uri,
+      });
+    else {
+      // return navigation.navigate("signup", { image: data.uri });
+    }
   };
 
   const clickPicture = async () => {
@@ -78,6 +131,12 @@ const CameraComponent = ({ navigation, route }) => {
 
     if (route.params?.addMealImg) {
       return navigation.navigate("newmeal", {
+        image: data.uri,
+      });
+    }
+
+    if (route.params?.addStaff) {
+      return navigation.navigate("newstaff", {
         image: data.uri,
       });
     }

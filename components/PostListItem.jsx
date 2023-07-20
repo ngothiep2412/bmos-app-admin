@@ -1,10 +1,16 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import React from "react";
-import { colors, defaultImgFood } from "../styles/styles";
+import { colors, defaultProduct } from "../styles/styles";
 
-const PostListItem = ({ navigate, title, id, name, createDate, imgSrc }) => {
-  // const [openModal, setOpenModal] = useState(false);
-
+const PostListItem = ({
+  navigate,
+  title,
+  id,
+  name,
+  createDate,
+  imgSrc,
+  status,
+}) => {
   return (
     <>
       <TouchableOpacity
@@ -42,7 +48,7 @@ const PostListItem = ({ navigate, title, id, name, createDate, imgSrc }) => {
             >
               <Image
                 source={{
-                  uri: imgSrc === null ? defaultImgFood : imgSrc,
+                  uri: imgSrc === null ? defaultProduct : imgSrc,
                 }}
                 style={{
                   width: "100%",
@@ -67,9 +73,9 @@ const PostListItem = ({ navigate, title, id, name, createDate, imgSrc }) => {
               }}
               numberOfLines={2}
             >
-              {name}
+              {title}
             </Text>
-            <Text
+            {/* <Text
               style={{
                 flex: 1,
                 color: colors.color3,
@@ -83,7 +89,34 @@ const PostListItem = ({ navigate, title, id, name, createDate, imgSrc }) => {
               numberOfLines={2}
             >
               {title}
-            </Text>
+            </Text> */}
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                justifyContent: "center",
+                marginLeft: 20,
+                marginTop: 20,
+              }}
+            >
+              <Text style={{ fontSize: 15, fontWeight: "400", marginRight: 5 }}>
+                Status:{" "}
+              </Text>
+              <Text
+                style={{
+                  flex: 1,
+                  color: status ? colors.price : colors.color1,
+                  alignSelf: "flex-start",
+
+                  textTransform: "uppercase",
+                  fontSize: 15,
+                  fontWeight: "600",
+                }}
+                numberOfLines={2}
+              >
+                {status.toString()}
+              </Text>
+            </View>
             <Text
               style={{
                 flex: 1,

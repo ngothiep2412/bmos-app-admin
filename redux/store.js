@@ -11,5 +11,5 @@ export const store = configureStore({
   },
 });
 
-export const server = "http://54.254.120.134:6969/api/v1";
+export const server = "http://13.212.177.158:6969/api/v1";
 export const serverUrl = "https://mern-stack-server-y2sn.onrender.com/api/v1";

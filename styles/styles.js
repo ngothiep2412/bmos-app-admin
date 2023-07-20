@@ -76,7 +76,7 @@ export const formStyles = StyleSheet.create({
   btn: {
     backgroundColor: colors.color1,
     margin: 20,
-    padding: 18,
+    padding: 5,
     borderRadius: 10,
   },
 
@@ -102,3 +102,6 @@ export const defaultImg =
 
 export const defaultImgFood =
   "https://www.purinainstitute.com/sites/default/files/what-is-the-difference-between-dry-semi-moist-and-wet-pet-foods.png";
+
+export const defaultProduct =
+  "https://www.charlesprogers.com/assets/images/noimagedefault.jpg";

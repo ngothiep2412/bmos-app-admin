@@ -4,13 +4,15 @@ import React, { useRef, useEffect } from "react";
 import { Alert } from "react-native";
 import {
   SafeAreaView,
+  Image,
   Text,
   View,
   StyleSheet,
   Dimensions,
   Animated,
 } from "react-native";
-
+import Lottie from "lottie-react-native";
+import { colors } from "../styles/styles";
 const SplashScreen = ({ navigation }) => {
   const moveAnim = useRef(new Animated.Value(0)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -97,12 +99,20 @@ const SplashScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: "white" }]}>
       <View style={styles.contentContainer}>
-        <Animated.Image
+        {/* <Animated.Image
           style={[styles.image, { opacity: fadeAnim, width: "100%" }]}
           source={require("../assets/handshake.png")}
+        /> */}
+        <Lottie
+          style={styles.image}
+          source={require("../assets/animations/admin.json")}
+          autoPlay
+          loop
         />
         <Animated.View style={[styles.logoContainer, { marginLeft: moveAnim }]}>
-          <Text style={[styles.logoText]}>Manage </Text>
+          <Text style={[styles.logoText, { color: colors.color1 }]}>
+            Manage
+          </Text>
           <Animated.Text style={[styles.logoText, { opacity: fadeAnim }]}>
             Your Store
           </Animated.Text>
@@ -132,7 +142,7 @@ export const styles = StyleSheet.create({
   },
   image: {
     width: 150,
-    height: 250,
+    height: 150,
   },
   logoContainer: {
     flexDirection: "row",

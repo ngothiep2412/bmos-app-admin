@@ -6,26 +6,46 @@ import { Avatar } from "react-native-paper";
 import { useDispatch, useSelector } from "react-redux";
 
 import { useIsFocused } from "@react-navigation/native";
-import { colors, defaultImg, defaultStyle, formStyles } from "../styles/styles";
-import { useMessageAndErrorUser } from "../utils/hooks";
-import { logout } from "../redux/actions/userAction";
+import {
+  colors,
+  defaultImg,
+  defaultProduct,
+  defaultStyle,
+  formStyles,
+} from "../styles/styles";
+import { getloadUser, useMessageAndErrorUser } from "../utils/hooks";
+import { loadUser, logout } from "../redux/actions/userAction";
 import Loader from "../components/Loader";
 import ButtonBox from "../components/ButtonBox";
+import { Alert } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { updatePic } from "../redux/actions/otherAction";
 
 const Profile = ({ navigation, route }) => {
-  const { user } = useSelector((state) => state.user);
-
-  const [avatar, setAvatar] = useState(
-    user?.avatar ? user.avatar.url : defaultImg
-  );
+  const isFocused = useIsFocused();
 
   const dispatch = useDispatch();
 
-  const loading = useMessageAndErrorUser(navigation, dispatch, "login");
-
-  const logoutHandler = () => {
-    dispatch(logout());
+  const logoutHandler = async () => {
+    await AsyncStorage.removeItem("token");
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "login" }],
+    });
+    Alert.alert(
+      //title
+      "Successfully",
+      //body
+      "Logout successfully",
+      [
+        {
+          text: "OK",
+          onPress: () => console.log("Yes Pressed"),
+        },
+      ],
+      { cancelable: false }
+      //clicking out side of alert will not cancel
+    );
   };
 
   const navigateHandler = (text) => {
@@ -43,11 +63,8 @@ const Profile = ({ navigation, route }) => {
         break;
     }
   };
-  useEffect(() => {
-    if (user?.avatar) {
-      setAvatar(user.avatar);
-    }
-  }, [user]);
+
+  const { loading, user } = getloadUser(dispatch, isFocused);
 
   return (
     <>
@@ -65,7 +82,7 @@ const Profile = ({ navigation, route }) => {
             <View style={styles.container}>
               <Avatar.Image
                 source={{
-                  uri: avatar,
+                  uri: user?.avatar,
                 }}
                 size={100}
                 style={{ backgroundColor: colors.color1 }}

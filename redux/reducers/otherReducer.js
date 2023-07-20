@@ -5,6 +5,9 @@ export const otherReducer = createReducer({ order: {} }, (builder) => {
     .addCase("updateProfileRequest", (state) => {
       state.loading = true;
     })
+    .addCase("registerStaffRequest", (state) => {
+      state.loading = true;
+    })
     .addCase("updateMealProductRequest", (state) => {
       state.loading = true;
     })
@@ -21,6 +24,10 @@ export const otherReducer = createReducer({ order: {} }, (builder) => {
       state.loading = true;
     })
     .addCase("updateProfileSuccess", (state, action) => {
+      state.loading = false;
+      state.message = action.payload;
+    })
+    .addCase("registerStaffSuccess", (state, action) => {
       state.loading = false;
       state.message = action.payload;
     })
@@ -45,6 +52,10 @@ export const otherReducer = createReducer({ order: {} }, (builder) => {
       state.order = action.payload;
     })
     .addCase("updateProfileFail", (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    })
+    .addCase("registerStaffFail", (state, action) => {
       state.loading = false;
       state.error = action.payload;
     })

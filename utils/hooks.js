@@ -5,6 +5,7 @@ import axios from "axios";
 import { server } from "../redux/store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Alert } from "react-native";
+import { loadUser } from "../redux/actions/userAction";
 
 export const useMessageAndErrorUser = (
   navigation,
@@ -205,6 +206,39 @@ export const useAdminPosts = (dispatch, isFocused) => {
 
   return {
     posts,
+    loading,
+  };
+};
+
+export const getloadUser = (dispatch, isFocused) => {
+  const { user, error, loading } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (error) {
+      Alert.alert(
+        //title
+        "Error",
+        //body
+        error,
+        [
+          {
+            text: "OK",
+            onPress: () => console.log("Yes Pressed"),
+          },
+        ],
+        { cancelable: false }
+        //clicking out side of alert will not cancel
+      );
+      dispatch({
+        type: "clearError",
+      });
+    }
+
+    dispatch(loadUser());
+  }, [dispatch, isFocused, error]);
+
+  return {
+    user,
     loading,
   };
 };

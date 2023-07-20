@@ -2,14 +2,26 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { ActivityIndicator } from "react-native-paper";
 import { colors } from "../styles/styles";
-
+import Lottie from "lottie-react-native";
 const Loader = () => {
   return (
-    <ActivityIndicator
-      style={{ top: "50%", position: "absolute", alignSelf: "center" }}
-      size={100}
-      color={colors.color3}
-    ></ActivityIndicator>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Lottie
+        style={{
+          height: 200,
+          width: 200,
+        }}
+        source={require("../assets/animations/loading.json")}
+        autoPlay
+        loop
+      />
+    </View>
   );
 };
 

@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import {
   colors,
   defaultImgFood,
+  defaultProduct,
   defaultStyle,
   formHeading,
   inputOptions,
@@ -34,7 +35,7 @@ const NewPost = ({ navigation, route }) => {
       name: imagePost.split("/").pop(),
     });
 
-    dispatch(addPost(name, title, description, myForm));
+    dispatch(addPost(title, description, name, myForm));
   };
 
   const loadingOther = useMessageAndErrorPost(dispatch, navigation, "posts");
@@ -62,90 +63,91 @@ const NewPost = ({ navigation, route }) => {
         <View style={{ marginBottom: 20, paddingTop: 70 }}>
           <Text style={formHeading}>Add New</Text>
         </View>
-        <View style={{ height: 650 }}>
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            style={{
-              padding: 20,
-              elevation: 10,
-              borderRadius: 10,
 
-              backgroundColor: colors.color3,
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={{
+            padding: 20,
+            elevation: 10,
+            borderRadius: 10,
+            maxHeight: 650,
+            backgroundColor: colors.color3,
+          }}
+        >
+          <View
+            style={{
+              justifyContent: "center",
+              minHeight: 600,
             }}
           >
             <View
               style={{
-                justifyContent: "center",
+                width: 80,
+                height: 80,
+                alignSelf: "center",
+                marginBottom: 20,
               }}
             >
-              <View
-                style={{
-                  width: 80,
-                  height: 80,
-                  alignSelf: "center",
-                  marginBottom: 20,
-                }}
-              >
-                <Avatar.Image
-                  size={80}
-                  style={{
-                    backgroundColor: colors.color1,
-                  }}
-                  source={{
-                    uri: imagePost ? imagePost : defaultImgFood,
-                  }}
-                />
-              </View>
-
-              <Button
-                onPress={() =>
-                  navigation.navigate("camera", {
-                    addPostImg: true,
-                  })
-                }
-                textColor={colors.color1}
-              >
-                Manage Images
-              </Button>
-              <Text style={{ color: "white" }}>Name</Text>
-              <TextInput
-                {...inputOptions}
-                placeholder="Name"
-                value={name}
-                onChangeText={setName}
-              />
-              <Text style={{ color: "white" }}>Title</Text>
-              <TextInput
-                {...inputOptions}
-                placeholder="Title"
-                value={title}
-                onChangeText={setTitle}
-              />
-              <Text style={{ color: "white" }}>Description</Text>
-              <TextInput
-                {...inputOptions}
-                placeholder="Description"
-                value={description}
-                onChangeText={setDescription}
-              />
-
-              <Button
-                textColor={colors.color2}
+              <Avatar.Image
+                size={80}
                 style={{
                   backgroundColor: colors.color1,
-                  margin: 20,
-                  padding: 6,
-                  marginBottom: 50,
                 }}
-                onPress={submitHandler}
-                loading={loadingOther}
-                disabled={disableBtnCondition}
-              >
-                Add
-              </Button>
+                source={{
+                  uri: imagePost ? imagePost : defaultProduct,
+                }}
+              />
             </View>
-          </ScrollView>
-        </View>
+
+            <Button
+              onPress={() =>
+                navigation.navigate("camera", {
+                  addPostImg: true,
+                })
+              }
+              textColor={colors.color1}
+            >
+              Change Image
+            </Button>
+            <Text style={{ color: "white" }}>Name</Text>
+            <TextInput
+              {...inputOptions}
+              placeholder="Name"
+              value={name}
+              onChangeText={setName}
+            />
+            <Text style={{ color: "white" }}>Title</Text>
+            <TextInput
+              {...inputOptions}
+              placeholder="Title"
+              value={title}
+              onChangeText={setTitle}
+            />
+            <Text style={{ color: "white" }}>Description</Text>
+            <TextInput
+              {...inputOptions}
+              placeholder="Description"
+              value={description}
+              onChangeText={setDescription}
+            />
+
+            <Button
+              textColor={colors.color2}
+              style={{
+                backgroundColor: colors.color1,
+                margin: 20,
+                padding: 6,
+                marginBottom: 50,
+              }}
+              icon={"add"}
+              onPress={submitHandler}
+              loading={loadingOther}
+              disabled={disableBtnCondition}
+            >
+              Add
+            </Button>
+          </View>
+        </ScrollView>
       </View>
     </KeyboardAvoidingView>
   );

@@ -65,6 +65,12 @@ const PostDetail = ({ route: { params } }) => {
           marginTop: -30,
           borderTopLeftRadius: 55,
           borderTopRightRadius: 55,
+          borderColor: "#EBEBEB",
+          shadowColor: "black",
+          shadowRadius: 5,
+          shadowOffset: { width: 0, height: 2 },
+          borderWidth: 0.2,
+          shadowOpacity: 0.5,
         }}
       >
         <ScrollView>
@@ -79,10 +85,10 @@ const PostDetail = ({ route: { params } }) => {
               numberOfLines={2}
               style={{ fontSize: 25, fontWeight: "900", marginBottom: 10 }}
             >
-              {post[0]?.name}
+              {post[0]?.title}
             </Text>
           </View>
-          <View
+          {/* <View
             style={{
               flexDirection: "row",
               // justifyContent: "center",
@@ -95,7 +101,7 @@ const PostDetail = ({ route: { params } }) => {
             >
               {post[0]?.title}
             </Text>
-          </View>
+          </View> */}
           <View>
             <Text
               numberOfLines={8}

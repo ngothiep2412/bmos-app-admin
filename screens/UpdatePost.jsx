@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import {
   colors,
   defaultImgFood,
+  defaultProduct,
   defaultStyle,
   formHeading,
   inputOptions,
@@ -111,7 +112,7 @@ const UpdatePost = ({ navigation, route }) => {
                     backgroundColor: colors.color1,
                   }}
                   source={{
-                    uri: imagePost ? imagePost : defaultImgFood,
+                    uri: imagePost ? imagePost : defaultProduct,
                   }}
                 />
               </View>
@@ -124,7 +125,7 @@ const UpdatePost = ({ navigation, route }) => {
                 }
                 textColor={colors.color1}
               >
-                Manage Images
+                Change image
               </Button>
               <Text style={{ color: "white" }}>Title</Text>
               <TextInput
@@ -208,6 +209,7 @@ const UpdatePost = ({ navigation, route }) => {
                 onPress={submitHandler}
                 loading={loadingOther}
                 disabled={disableBtnCondition}
+                icon={"update"}
               >
                 Update
               </Button>

@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import { colors } from "../styles/styles";
+import { colors, defaultProduct } from "../styles/styles";
 import { Button } from "react-native-paper";
 import { Image } from "react-native";
 
@@ -44,7 +44,7 @@ const UserItem = ({
       >
         <Image
           style={{ width: 80, height: 80, borderRadius: 100 }}
-          source={{ uri: avatar }}
+          source={{ uri: avatar ? avatar : defaultProduct }}
         ></Image>
       </View>
       <View style={{ flexDirection: "column" }}>

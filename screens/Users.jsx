@@ -1,18 +1,23 @@
 import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
-import { colors, defaultStyle, formHeading } from "../styles/styles";
+import {
+  colors,
+  defaultStyle,
+  formHeading,
+  formStyles,
+} from "../styles/styles";
 import Loader from "../components/Loader";
 import UserItem from "../components/UserItem";
 import { useIsFocused } from "@react-navigation/native";
-import { Provider } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { server } from "../redux/store";
 import { TouchableOpacity } from "react-native";
 import { Dimensions } from "react-native";
 import { TextInput } from "react-native-paper";
+import { Ionicons } from "@expo/vector-icons";
 
-const Users = () => {
+const Users = ({ navigation }) => {
   const isFocused = useIsFocused();
 
   const [loading, setLoading] = useState(false);
@@ -35,6 +40,7 @@ const Users = () => {
   const [saveStaff, setSaveStaff] = useState([]);
 
   useEffect(() => {
+    setSelectedTab(0);
     setLoading(true);
     const fetchData1 = async () => {
       try {
@@ -443,11 +449,15 @@ const Users = () => {
     }
   };
 
+  const navigateAdd = () => {
+    navigation.navigate("newstaff");
+  };
+
   return (
     <View style={{ ...defaultStyle, backgroundColor: colors.color5 }}>
       {/* Heading */}
-      <View style={{ marginBottom: 20 }}>
-        <Text style={formHeading}>All Staff</Text>
+      <View style={formStyles.heading}>
+        <Text style={formStyles.headingText}>All Users</Text>
       </View>
 
       <View style={styles.spacerStyle} />
@@ -466,11 +476,39 @@ const Users = () => {
             />
             <TextInput
               style={styles.searchInput}
-              placeholder="Search Meal"
+              placeholder="Search User"
               onChangeText={handleSearch}
               activeUnderlineColor={colors.color1}
               value={searchText}
             />
+            {selectedTab == 1 && (
+              <View
+                style={{
+                  margin: 10,
+                  height: 70,
+                  width: 70,
+                  borderRadius: 100,
+                  backgroundColor: colors.color1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  position: "absolute",
+                  zIndex: 9999,
+                  right: -20,
+                  bottom: 70,
+                  borderColor: "#EBEBEB",
+                  shadowColor: "red",
+                  shadowRadius: 8,
+                  shadowOffset: { width: 0, height: 2 },
+                  borderWidth: 2,
+                  shadowOpacity: 0.15,
+                }}
+              >
+                {/* Nội dung màn hình */}
+                <TouchableOpacity onPress={navigateAdd}>
+                  <Ionicons size={35} color={"white"} name="add"></Ionicons>
+                </TouchableOpacity>
+              </View>
+            )}
             <ScrollView
               showsVerticalScrollIndicator={false}
               style={{

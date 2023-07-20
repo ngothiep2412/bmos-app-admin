@@ -29,6 +29,10 @@ export default function Header({
             left: 20,
             top: 40,
             zIndex: 10,
+            borderColor: "#EBEBEB",
+            borderRadius: 100,
+            backgroundColor: colors.color1,
+            borderWidth: 1,
           }}
           onPress={() => navigate.goBack()}
         >
@@ -57,6 +61,10 @@ export default function Header({
             right: 20,
             top: 40,
             zIndex: 10,
+            borderColor: "#EBEBEB",
+            borderRadius: 100,
+            backgroundColor: colors.color1,
+            borderWidth: 1,
           }}
           onPress={() => {
             navigate.navigate("updatepost", { id });

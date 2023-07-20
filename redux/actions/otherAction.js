@@ -180,6 +180,8 @@ export const updateProfile =
         type: "updateProfileRequest",
       });
 
+      const token = await AsyncStorage.getItem("token");
+
       const data1 = await axios.post(`${serverUrl}/user/uploadimg`, myForm, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -200,6 +202,7 @@ export const updateProfile =
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
         }
@@ -213,6 +216,67 @@ export const updateProfile =
       dispatch({
         type: "updateProfileFail",
         payload: error.response.data.message,
+      });
+    }
+  };
+
+export const registerStaff =
+  (
+    fullName,
+    dobString,
+    phoneNumber,
+    myForm,
+    email,
+    password,
+    confirmPassword,
+    identityNumber
+  ) =>
+  async (dispatch) => {
+    try {
+      dispatch({
+        type: "registerStaffRequest",
+      });
+
+      const data1 = await axios.post(`${serverUrl}/user/uploadimg`, myForm, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      });
+
+      const avtar = data1.data.url;
+
+      const token = await AsyncStorage.getItem("token");
+
+      const { data } = await axios.post(
+        `${server}/auth/register-staff`,
+        {
+          fullName: fullName,
+          dob: dobString,
+          email: email,
+          password: password,
+          confirmPassword: confirmPassword,
+          phoneNumber: phoneNumber,
+          avatar: avtar,
+          identityNumber: identityNumber,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+        }
+      );
+
+      dispatch({
+        type: "registerStaffSuccess",
+        payload: data.message,
+      });
+    } catch (error) {
+      dispatch({
+        type: "registerStaffFail",
+        payload: "Register Fail",
       });
     }
   };

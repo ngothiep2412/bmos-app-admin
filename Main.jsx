@@ -24,8 +24,8 @@ import NewPost from "./screens/NewPost";
 import PostDetail from "./screens/PostDetail";
 import UpdatePost from "./screens/UpdatePost";
 import UpdateProfile from "./screens/UpdateProfile";
-import Onboarding from "react-native-onboarding-swiper";
 import OnboardingScreen from "./screens/OnBoarding";
+import CreateStaff from "./screens/CreateStaff";
 
 const Tab = createBottomTabNavigator();
 
@@ -276,6 +276,10 @@ function Main() {
               name="updateprofile"
               component={UpdateProfile}
             ></Stack.Screen>
+            <Stack.Screen
+              name="newstaff"
+              component={CreateStaff}
+            ></Stack.Screen>
           </Stack.Group>
         </Stack.Navigator>
       </NavigationContainer>
@@ -313,6 +317,10 @@ function Main() {
             <Stack.Screen
               name="updateprofile"
               component={UpdateProfile}
+            ></Stack.Screen>
+            <Stack.Screen
+              name="newstaff"
+              component={CreateStaff}
             ></Stack.Screen>
           </Stack.Group>
         </Stack.Navigator>

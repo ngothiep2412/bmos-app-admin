@@ -17,16 +17,12 @@ const Posts = ({ navigation }) => {
   const isFocused = useIsFocused();
 
   const { loading, posts } = useAdminPosts(dispatch, isFocused);
+
   const navigateAdd = () => {
     navigation.navigate("newpost");
   };
 
   const [filteredPosts, setFilteredPosts] = useState([]);
-
-  useEffect(() => {
-    setSearchText("");
-    setFilteredPosts(posts);
-  }, [posts, isFocused]);
 
   const [searchText, setSearchText] = useState("");
 
@@ -42,6 +38,18 @@ const Posts = ({ navigation }) => {
       setFilteredPosts(filteredList);
     }
   };
+
+  useEffect(() => {
+    setSearchText("");
+    const clonedPosts = [...posts];
+    if (posts && posts.length > 0 && posts[0].hasOwnProperty("status")) {
+      clonedPosts.sort((post1, post2) => {
+        return post1.status === true ? -1 : post2.status === true ? 1 : 0;
+      });
+    }
+    setFilteredPosts(clonedPosts);
+    console.log("aaaaa");
+  }, [posts, isFocused]);
 
   return (
     <>
@@ -86,7 +94,7 @@ const Posts = ({ navigation }) => {
             <View style={{ marginBottom: 20, marginTop: 10 }}>
               <TextInput
                 style={styles.searchInput}
-                placeholder="Search Meal"
+                placeholder="Search New"
                 onChangeText={handleSearch}
                 activeUnderlineColor={colors.color1}
                 value={searchText}
@@ -99,22 +107,38 @@ const Posts = ({ navigation }) => {
                 height: 550,
               }}
             >
-              <FlatList
-                showsVerticalScrollIndicator={false}
-                data={filteredPosts}
-                renderItem={({ item, index }) => (
-                  <PostListItem
-                    navigate={navigation}
-                    key={item.id}
-                    id={item.id}
-                    name={item.name}
-                    title={item.title}
-                    imgSrc={item.image}
-                    createDate={item.createDate}
-                  />
-                )}
-                keyExtractor={(item) => item.id.toString()}
-              />
+              {filteredPosts.length === 0 ? (
+                <View
+                  style={{
+                    flex: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text style={{ fontSize: 30, fontWeight: "600" }}>
+                    Empty list!
+                  </Text>
+                  <Text>You have no news at this moment</Text>
+                </View>
+              ) : (
+                <FlatList
+                  showsVerticalScrollIndicator={false}
+                  data={filteredPosts}
+                  renderItem={({ item, index }) => (
+                    <PostListItem
+                      navigate={navigation}
+                      key={item.id}
+                      id={item.id}
+                      name={item.name}
+                      title={item.title}
+                      imgSrc={item.image}
+                      status={item.status}
+                      createDate={item.createDate}
+                    />
+                  )}
+                  keyExtractor={(item) => item.id.toString()}
+                />
+              )}
             </View>
           </>
         )}

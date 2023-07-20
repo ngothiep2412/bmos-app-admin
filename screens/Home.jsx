@@ -101,7 +101,12 @@ const Home = () => {
       {loading ? (
         <Loader></Loader>
       ) : (
-        <View style={{ ...defaultStyle, backgroundColor: colors.color5 }}>
+        <View
+          style={{
+            ...defaultStyle,
+            backgroundColor: colors.color5,
+          }}
+        >
           <View
             style={{
               paddingTop: 50,
@@ -114,129 +119,140 @@ const Home = () => {
             {/* Heading */}
             <Heading text1="Our" text2="Dashboard" />
           </View>
+
           <ScrollView
+            style={{ maxHeight: 596 }}
             showsVerticalScrollIndicator="false"
             // style={{ height: 400 }}
           >
-            <View
-              style={{
-                flex: 1,
-                marginTop: 20,
-              }}
-            >
-              <View style={styles.container}>
-                <View style={[styles.card, styles.card2]}>
-                  <View style={styles.cardContainer}>
-                    <FontAwesome5
-                      name="users"
-                      size={30}
-                      color={colors.color1}
-                    ></FontAwesome5>
-                    <Text style={[styles.cardTextNumber, { color: "#0D337E" }]}>
-                      {totalStaff}
-                    </Text>
-                    <Text style={[styles.cardText, { color: "#0D337E" }]}>
-                      Total Staff
-                    </Text>
+            <View style={{ minHeight: 500 }}>
+              <View
+                style={{
+                  flex: 1,
+                  marginTop: 20,
+                }}
+              >
+                <View style={styles.container}>
+                  <View style={[styles.card, styles.card2]}>
+                    <View style={styles.cardContainer}>
+                      <FontAwesome5
+                        name="users"
+                        size={30}
+                        color={colors.color1}
+                      ></FontAwesome5>
+                      <Text
+                        style={[styles.cardTextNumber, { color: "#0D337E" }]}
+                      >
+                        {totalStaff}
+                      </Text>
+                      <Text style={[styles.cardText, { color: "#0D337E" }]}>
+                        Total Staff
+                      </Text>
+                    </View>
                   </View>
-                </View>
-                <View style={[styles.card, styles.card4]}>
-                  <View style={styles.cardContainer}>
-                    <FontAwesome5
-                      name="blog"
-                      size={20}
-                      color={colors.color1}
-                    ></FontAwesome5>
-                    <Text style={[styles.cardTextNumber, { color: "#B42A56" }]}>
-                      {totalNews}
-                    </Text>
-                    <Text style={[styles.cardText, { color: "#B42A56" }]}>
-                      Total News
-                    </Text>
+                  <View style={[styles.card, styles.card4]}>
+                    <View style={styles.cardContainer}>
+                      <FontAwesome5
+                        name="blog"
+                        size={20}
+                        color={colors.color1}
+                      ></FontAwesome5>
+                      <Text
+                        style={[styles.cardTextNumber, { color: "#B42A56" }]}
+                      >
+                        {totalNews}
+                      </Text>
+                      <Text style={[styles.cardText, { color: "#B42A56" }]}>
+                        Total News
+                      </Text>
+                    </View>
                   </View>
                 </View>
               </View>
-            </View>
-            <Text
-              style={[
-                styles.cardText,
+              <Text
+                style={[
+                  styles.cardText,
 
-                {
-                  fontSize: 20,
-                  fontWeight: "800",
-                  textAlign: "left",
-                  marginTop: 10,
-                  marginBottom: 30,
-                },
-              ]}
-            >
-              Analasyis
-            </Text>
-            <View
-              style={{
-                width: "100%",
-                alignItems: "center",
-              }}
-            >
-              <Chart
-                totalAccountActive={totalAccountActive}
-                totalAccountInactive={totalAccountInactive}
-                totalAccountUnverified={totalAccountUnverified}
-              />
-            </View>
-            <Text
-              style={[
-                styles.cardText,
-
-                {
-                  color: "#56348D",
-                  fontSize: 20,
-                  fontWeight: "800",
-                  textAlign: "center",
-                  marginTop: 10,
-                },
-              ]}
-            >
-              Number of type user in total user
-            </Text>
-            <View style={{ marginTop: 20 }}>
-              <VictoryChart>
-                <VictoryAxis
-                  dependentAxis
-                  tickFormat={(tick) => `${tick / 1000}k`}
+                  {
+                    fontSize: 20,
+                    fontWeight: "800",
+                    textAlign: "left",
+                    marginTop: 10,
+                    marginBottom: 30,
+                    color: colors.color1,
+                  },
+                ]}
+              >
+                Analasyis
+              </Text>
+              <View
+                style={{
+                  width: "100%",
+                  alignItems: "center",
+                }}
+              >
+                <Chart
+                  totalAccountActive={totalAccountActive}
+                  totalAccountInactive={totalAccountInactive}
+                  totalAccountUnverified={totalAccountUnverified}
                 />
-                <VictoryAxis />
-                <VictoryGroup>
-                  <VictoryBar
-                    data={profit}
-                    x="month"
-                    y="total"
-                    labelComponent={<VictoryLabel dy={-20} />}
-                    labels={({ datum }) => `${datum.total}`}
-                    style={{
-                      data: {
-                        fill: ({ datum }) =>
-                          colorScale[parseInt(datum.month) - 1],
-                      },
-                    }}
-                  />
-                </VictoryGroup>
-              </VictoryChart>
-            </View>
-            <Text
-              style={[
-                styles.cardText,
+              </View>
+              <Text
+                style={[
+                  styles.cardText,
 
-                {
-                  color: "#56348D",
-                  fontSize: 20,
-                  fontWeight: "800",
-                  textAlign: "center",
-                },
-              ]}
-            >
-              Monthly revenue chart
-            </Text>
+                  {
+                    color: "#56348D",
+                    fontSize: 20,
+                    fontWeight: "800",
+                    textAlign: "center",
+                    marginTop: 10,
+                  },
+                ]}
+              >
+                Number of type user in total user
+              </Text>
+              <View style={{ marginTop: 20 }}>
+                <VictoryChart>
+                  <VictoryAxis
+                    dependentAxis
+                    tickValues={[1000000, 2000000, 3000000, 4000000, 5000000]}
+                    tickFormat={(tick) => `${tick / 1000}k`}
+                  />
+
+                  <VictoryAxis />
+                  <VictoryGroup>
+                    <VictoryBar
+                      data={profit}
+                      x="month"
+                      y="total"
+                      labelComponent={<VictoryLabel dy={-20} />}
+                      labels={({ datum }) => `${datum.total}`}
+                      style={{
+                        data: {
+                          fill: ({ datum }) =>
+                            colorScale[parseInt(datum.month) - 1],
+                        },
+                      }}
+                    />
+                  </VictoryGroup>
+                </VictoryChart>
+              </View>
+              <Text
+                style={[
+                  styles.cardText,
+
+                  {
+                    color: "#56348D",
+                    fontSize: 20,
+                    fontWeight: "800",
+                    textAlign: "center",
+                  },
+                ]}
+              >
+                Monthly revenue chart
+              </Text>
+            </View>
           </ScrollView>
         </View>
       )}
